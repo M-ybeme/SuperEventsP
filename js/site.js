@@ -101,7 +101,8 @@ function buildDD() {
         ddItem.setAttribute("data-string", cityName);
         eventDD.appendChild(ddItemNode);
     }
-    displayStats(currentEvents);
+  displayStats(currentEvents);
+  displayData(currentEvents);
 }
 
 displayStats(currentEvents);
@@ -160,7 +161,8 @@ function getEvents(element) {
         });
 
     }
-    displayStats(currentEvents);
+  displayStats(currentEvents);
+  displayData(currentEvents);
 
 }
 
@@ -173,7 +175,7 @@ function getEventData() {
         localStorage.setItem("eventData", JSON.stringify(currentEvents));
     }
 
-    return currentEvents;
+    displayStats(currentEvents);
 
 
 }
@@ -183,6 +185,22 @@ function displayData(currentEvents) {
     let eventBody = document.getElementById("eventBody");
     eventBody.innerHTML = "";
     
+  for (let index = 0; index < currentEvents.length; index++) {
 
+    //<tr><td>......</tr>
+    let eventNode = document.importNode(eventTemplate.content, true);
+
+    let eventItems = eventNode.querySelectorAll("td");
+
+    eventItems[0].textContent = currentEvents[index].event;
+    eventItems[1].textContent = currentEvents[index].city;
+    eventItems[2].textContent = currentEvents[index].state;
+    eventItems[3].textContent = currentEvents[index].attendance.toLocaleString();
+    eventItems[4].textContent = new Date(currentEvents[index].date).toLocaleDateString();
+    
+    eventBody.appendChild(eventNode);
+
+  }
+  displayData(currentEvents);
 
 }
