@@ -81,6 +81,7 @@ function buildDD() {
     let ddItem = ddItemNode.querySelector("a");
     //<a></a>
     ddItem.textContent = "All";
+    ddItem.setAttribute("data-string", "All");
     //<a>all</a>
     //<li><a>All</a></li>
     //this writes to the node to the page
@@ -88,53 +89,100 @@ function buildDD() {
 
     let currentEvents = events;
 
+
     //spred operoator makes new set of unique properties(no repeating properties)
     let distinctCities = [... new Set(currentEvents.map((event) => event.city))];
     
     for (let index = 0; index < distinctCities.length; index++) {
         let cityName = distinctCities[index];
         ddItemNode = document.importNode(ddItemTemplate.content, true);
-        let ddItem = ddItemNode.querySelector("a");
+        ddItem = ddItemNode.querySelector("a");
         ddItem.textContent = cityName;
+        ddItem.setAttribute("data-string", cityName);
         eventDD.appendChild(ddItemNode);
     }
     displayStats(currentEvents);
-    //display the stats for the selected city
-    function displayStats(currentEvents) {
-        let total = 0;
-        let average = 0;
-        let most = 0;
-        let least = -1;
+}
 
-        
-        for (let index = 0; index < currentEvents.length; index++) {
+displayStats(currentEvents);
+//display the stats for the selected city
+function displayStats(currentEvents) {
+    let total = 0;
+    let average = 0;
+    let most = 0;
+    let least = -1;
 
-            let attendance = currentEvents[index].attendance;
-            total += attendance;
+    
+    for (let index = 0; index < currentEvents.length; index++) {
 
-            //most is 0 att (<) is 2400000
-            //determine the most attendance 
-            if (most < attendance) {
-                most = attendance;
-            }
-            //determin least attended
-            // -1 > 240000 or is -1 < 0
-            if (least > attendance  || least < 0) {
-                least = attendance;
-            }
-            
+        let attendance = currentEvents[index].attendance;
+        total += attendance;
+
+        //most is 0 att (<) is 2400000
+        //determine the most attendance 
+        if (most < attendance) {
+            most = attendance;
         }
-        average = total / currentEvents.length;
+        //determin least attended
+        // -1 > 240000 or is -1 < 0
+        if (least > attendance  || least < 0) {
+            least = attendance;
+        }
+        
+    }
+    average = total / currentEvents.length;
 
-        document.getElementById("total").innerHTML = total.toLocaleString();
-        document.getElementById("most").innerHTML = most.toLocaleString();
-        document.getElementById("least").innerHTML = least.toLocaleString();
-        document.getElementById("average").innerHTML = average.toLocaleString(
-            "en-US", {
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0
+    document.getElementById("total").innerHTML = total.toLocaleString();
+    document.getElementById("most").innerHTML = most.toLocaleString();
+    document.getElementById("least").innerHTML = least.toLocaleString();
+    document.getElementById("average").innerHTML = average.toLocaleString(
+        "en-US", {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+        }
+    );
+
+}
+//remember "this" is being passed in as "element"
+function getEvents(element) {
+
+    let city = element.getAttribute("data-string");
+    
+    let currentEvents = getEventData();
+
+    //if city is all no filter needed
+    if (city != 'All') {
+        //same as => i key
+        currentEvents = currentEvents.filter(function (event) {
+            if (event.city == city) {
+                return event;
             }
-        );
+        });
 
     }
+    displayStats(currentEvents);
+
+}
+
+function getEventData() {
+    
+    currentEvents = JSON.parse(localStorage.getItem("eventData"));
+    if (currentEvents == null) {
+        currentEvents = events;
+
+        localStorage.setItem("eventData", JSON.stringify(currentEvents));
+    }
+
+    return currentEvents;
+
+
+}
+//display bottom table function
+function displayData(currentEvents) {
+    let eventTemplate = document.getElementById("eventData-template");
+    let eventBody = document.getElementById("eventBody");
+    eventBody.innerHTML = "";
+    
+
+
 }

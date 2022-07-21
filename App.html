@@ -94,6 +94,32 @@
                 </div>
                 <div class="col-12 col-md-6 order-first order-md-last">
                 <img src="/img/DJEventsTransparent750px.png" class="image-fluid p-2"> 
+        </div>
+        <div class="row">
+            <div class="col-12">
+                CTA Would be here
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <button class="btn btn-primary btn-lg"> Add Event</button>
+                <div>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Event Name</th>
+                            <th>City</th>
+                            <th>State</th>
+                            <th>Attendance</th>
+                            <th>Event Date</th>
+                        </tr>
+                        <tr>
+                            <tbody id="eventBody">
+                                <!-- event Body goes here -->
+                            </tbody>
+                        </tr>
+                    </table>
+                </div>
+            </div>
 
         </div>
     </main>
@@ -121,9 +147,18 @@
     </footer>
 
     <template id="cityDD-template">
-        <li><a class="dropdown-item" href="#"></a></li>
+        <li><a class="dropdown-item" onclick="getEvents(this)" data-string=""></a></li>
     </template>
 
+    <template id="eventData-template">
+        <tr>
+            <td data-id="event"></td>
+            <td data-id="city"></td>
+            <td date-id="state"></td>
+            <td data-id="attendance"></td>
+            <td data-id="eventDate"></td>
+        </tr>
+    </template>
 
 
     <!-- Bootstrap JS -->
