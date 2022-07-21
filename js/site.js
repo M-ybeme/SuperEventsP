@@ -129,10 +129,10 @@ function displayStats(currentEvents) {
         if (least > attendance  || least < 0) {
             least = attendance;
         }
-        
+        document.getElementById("statsHeader").innerHTML = `stats for${currentEvents[index]}.city`;
     }
     average = total / currentEvents.length;
-
+    
     document.getElementById("total").innerHTML = total.toLocaleString();
     document.getElementById("most").innerHTML = most.toLocaleString();
     document.getElementById("least").innerHTML = least.toLocaleString();
@@ -202,5 +202,41 @@ function displayData(currentEvents) {
 
   }
   displayData(currentEvents);
+
+}
+
+//saves event data from modal
+function saveEventData() {
+  let currentEvents = getEventData();
+
+  let eventObj = {
+    event: "",
+    city: "",
+    state: "",
+    attendance: 0,
+    date: "",
+  };
+
+  eventObj.event = document.getElementById("newEventName").value;
+  eventObj.city = document.getElementById("newEventCity").value;
+  
+  let selectedState = document.getElementById("newEventState");
+  eventObj.state = selectedState.options[selectedState.selectedIndex].text;
+
+  let attendance = document.getElementById("newEventAttendance").value;
+  attendance = parseInt(attendance);
+  eventObj.attendance = attendance;
+
+  let eventDate = document.getElementById("newEventDate").value;
+  let formattedEventDate = `${eventDate} 00:00`;
+  
+  eventObj.date = new Date(formattedEventDate).toLocaleDateString();
+
+  currentEvents.push(eventObj);
+
+  localStorage.setItem("eventData", JSON.stringify(currentEvents));
+
+  //will reset dropdown, displaystats, displaydata
+  buildDD();
 
 }
