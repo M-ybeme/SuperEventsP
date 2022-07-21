@@ -102,7 +102,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <button class="btn btn-primary btn-lg"> Add Event</button>
+                <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#addEventModal" > Add Event</button>
                 <div>
                     <table class="table table-striped">
                         <tr>
@@ -145,6 +145,26 @@
             </div>
         </div>
     </footer>
+
+    <!-- Modals -->
+    <div class="modal" tabindex="-1" id="addEventModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add A New Event</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- Templates -->
 
     <template id="cityDD-template">
         <li><a class="dropdown-item" onclick="getEvents(this)" data-string=""></a></li>
