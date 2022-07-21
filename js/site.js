@@ -104,12 +104,37 @@ function buildDD() {
         let total = 0;
         let average = 0;
         let most = 0;
-        let least = 0;
+        let least = -1;
 
-        for (let total = 0; currentEvents < currentEvents.length; index++) {
-            let total = currentEvents[index];
+        
+        for (let index = 0; index < currentEvents.length; index++) {
+
+            let attendance = currentEvents[index].attendance;
+            total += attendance;
+
+            //most is 0 att (<) is 2400000
+            //determine the most attendance 
+            if (most < attendance) {
+                most = attendance;
+            }
+            //determin least attended
+            // -1 > 240000 or is -1 < 0
+            if (least > attendance  || least < 0) {
+                least = attendance;
+            }
             
         }
+        average = total / currentEvents.length;
+
+        document.getElementById("total").innerHTML = total.toLocaleString();
+        document.getElementById("most").innerHTML = most.toLocaleString();
+        document.getElementById("least").innerHTML = least.toLocaleString();
+        document.getElementById("average").innerHTML = average.toLocaleString(
+            "en-US", {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }
+        );
 
     }
 }
