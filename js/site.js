@@ -131,8 +131,9 @@ function displayStats(currentEvents) {
         }
         
     }
-    average = total / currentEvents.length;
-    //document.getElementById("statsHeader").innerHTML = `stats for${currentEvents[index]}.city`;
+  average = total / currentEvents.length;
+  
+    document.getElementById("statsHeader").innerHTML = `stats for${currentEvents[index]}.city`;
     document.getElementById("total").innerHTML = total.toLocaleString();
     document.getElementById("most").innerHTML = most.toLocaleString();
     document.getElementById("least").innerHTML = least.toLocaleString();
